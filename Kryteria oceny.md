@@ -91,11 +91,3 @@ Przyznawane **niezależnie od wyniku punktowego**, jeśli:
 
 - Wszystkie oceny jurorów są **jawne po ogłoszeniu wyników**.
 - Jawne są również komentarze, jeśli jurorzy je dodają.
-
----
-
-Jeśli chcesz, mogę też: ✅ przygotować graficzną prezentację zasad  
-✅ objaśnić progi punktowe dla medali, jeśli chcesz je zdefiniować  
-✅ pomóc wprowadzić oceny dla konkretnego projektu
-
-Chcesz przejść do oceniania pierwszej drużyny?
