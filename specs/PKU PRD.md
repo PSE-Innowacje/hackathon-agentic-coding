@@ -9,15 +9,16 @@ Zbudować aplikację webową do **składania oświadczeń** w ramach rozliczeń 
 ---
 
 ## 2. 🔍 Problem
-
 - Potrzeba aplikacji www do składania oświadczeń w ramach rozliczeń opłat przesyłowych i pozaprzesyłowych dla aktywnych Umów Przesyłania.
+- Potrzeba wumożliwienia Administratorowi wprowadzenia danych Użytkownikach, którzy mogą logować się do aplikacji PKU
+- Potrzeba wumożliwienia Administratorowi wprowadzenia danych o wzorcach oświadczeń i przypisaniu ich do:
+	- typu kontrahenta,
+	- typu opłaty.
+- Potrzeba umożliwienia Administratorowi wprowadzenia danych dotyczących terminarza składania oświadczeń (informacja przez ile dni po rozpoczęciu miesiąca Kontrahent może złożyć oświadczenie.
+- Potrzeba prezentacji Kotrahentowi w formie listy oświadczeń do złożenia w danym miesiącu i roku wraz z prezentacją terminarza, do kiedy może złożyć to oświadczenie.
+- Potrzeba umożliwienia Kontrahentowi złożenia *oświadczenia dla opłaty*
 - Potrzeba umożliwienia Kontrahentowi złożenia **korekty oświadczenia**.
-- Potrzeba integracji z aplikacją **GAMS Rozliczenia** w celu:
-  - pobrania informacji o oświadczeniach do złożenia w ramach Umowy Przesyłania,
-  - pobrania terminarza na złożenie oświadczeń,
-  - pobrania wzorów oświadczeń dla poszczególnych opłat.
-- Potrzeba prezentacji w formie listy oświadczeń do złożenia w danym miesiącu i roku.
-- Potrzeba potwierdzenia złożenia oświadczenia z informacją, czy zostało przyjęte do rozliczenia.
+- Potrzeba potwierdzenia złożenia oświadczenia z informacją, czy zostało wysłane.
 
 ---
 
@@ -29,7 +30,7 @@ Wsparcie procesu rozliczania opłat przesyłowych i pozaprzesyłowych dla Umów 
 
 ## 4. 👥 Użytkownicy docelowi
 
-Kontrahenci składający oświadczenia:
+###4.1 Rola Kontrahent - uprawniająca do składania oświadczeń:
 
 | Symbol | Typ kontrahenta |
 |--------|----------------|
@@ -39,6 +40,7 @@ Kontrahenci składający oświadczenia:
 | ⚡ **Wyt** | Wytwórca |
 | 🔋 **Mag** | Magazyn |
 
+###4.2 Rola Administrator - uprawniająca do obługi menu Administracja
 ---
 
 ## 5. 💰 Rodzaje opłat
@@ -65,20 +67,35 @@ Oświadczenia składane w ramach Umowy Przesyłania dotyczą następujących op�
 
 ---
 
-## 6. 🏷️ Dane kontrahenta
+## 6. 🏷️ Użytkownicy, który będzie się logował do aplikacji PKU
 
-Dane kontrahenta z Partnera Biznesowego zapisanego w Umowie Przesyłania:
+###a) Wprowadzanie i edycja danych użytkownikó
+Dane Kontrahenta logującego się do aplikacji PKU, który ma Umowę Przesyłania - dla uproszczenia w danych Kontrahenta dopisałam:
+- jakiego jest **typu** na podstawie listy z punktu nr 4, 
+- informację o jego Umowie - numerze i czasie jej obowiązywania od/do:
 
-| Pole | Opis |
-|------|------|
-| Skrót kontrahenta | — |
-| Nazwa pełna kontrahenta | — |
-| Nazwa skrócona kontrahenta | — |
-| KRS | — |
-| NIP | — |
-| Adres siedziby | — |
-| Kod kontrahenta | — |
+| Pole | Typ | Wymagalność | Ograniczenia |
+|------|-----|-------------|--------------|
+| Imię | tekst | obowiązkowe tylko dla roli "Administrator"| do 100 znaków |
+| Nazwisko | tekst | obowiązkowe tylko dla roli "Administrator"| do 100 znaków |
+| Email / login | tekst | obowiązkowe | do 100 znaków, walidacja email |
+| Rola | wybór jednokrotny | obowiązkowe | ze słownika (np. *Administrator*, *Kontrahent*) |
+| Skrót kontrahenta | tekst |Obowiązkowe dla roli "Kontrahent"|od 3 do 16 znaków|
+| Nazwa pełna kontrahenta | tekst |Obowiązkowe dla roli "Kontrahent"|do 100 znaków|
+| Nazwa skrócona kontrahenta | tekst |Obowiązkowe dla roli "Kontrahent"|do 100 znaków|
+| KRS | tekst |Obowiązkowe dla roli "Kontrahent"|do 100 znaków|
+| NIP | tekst |Obowiązkowe dla roli "Kontrahent"|do 100 znaków|
+| Adres siedziby | tekst |Obowiązkowe dla roli "Kontrahent"|do 100 znaków|
+| Kod kontrahenta | tekst |Obowiązkowe dla roli "Kontrahent"|do 100 znaków|
+| Typ kontrahenta | wybór wielokrotny |Obowiązkowe dla roli "Kontrahent"|*OSDp*/ *OSDn*/ *Wytwórca*/ *Magazyn*/ *Odbiorca Końcowy*|
+| Numer Umowy kontrahenta | tekst |Obowiązkowe dla roli "Kontrahent"|do 100 znaków|
+| Data obowiązywania umowy od | data |Obowiązkowe dla roli "Kontrahent"|-|
+| Data obowiązywania umowy do | data |Obowiązkowe dla roli "Kontrahent"|-|
 
+###b) Widok listy
+
+> 📌 **Menu → Użytkownicy**
+> W menu użytkownicy dostępna lista rekordów z Email, rola, sortowanie domyślne po email
 ---
 
 ## 7. 🔢 Numery oświadczeń podstawowych — opłaty pozaprzesyłowe
@@ -93,7 +110,7 @@ OSW / Typ_opłaty / Skrót_kontrahenta / rok_rozliczenia / miesiąc_rozliczenia 
 |---------|------|
 | `OSW` | Skrót od „oświadczenie" |
 | `Typ_opłaty` | `OP` / `OZE` / `OKO` / `OM` |
-| `Skrót_kontrahenta` | Pobrany z umowy |
+| `Skrót_kontrahenta` | do 20 znaków bez polskich liter |
 | `rok_rozliczenia` | Rok, za który wykonywane jest rozliczenie |
 | `miesiąc_rozliczenia` | Miesiąc, za który wykonywane jest rozliczenie |
 | `podokres` | Numer podokresu danego miesiąca (od `01`) |
@@ -143,10 +160,8 @@ Format numeru jak w pkt 8 (z segmentem `n_kor`), z typami opłat:
 | Status | Opis |
 |--------|------|
 | ⬜ **Nie złożone** | Dla danego okresu nie wpłynęło oświadczenie |
-| 📤 **Złożone** | Oświadczenie złożone przez kontrahenta w PKU i przesłane do GAMS Rozliczenia |
-| ✅ **Przyjęte do rozliczenia** | Oświadczenie podpięte do rozliczenia w GAMS Rozliczenia |
-| 🔄 **Nieaktualne** | Oświadczenie odpięte od rozliczenia lub posiadające wcześniejszą wersję niż podpięte, a jednocześnie niepodpięte pod inne rozliczenie |
-| ❌ **Odrzucone** | Oświadczenie odrzucone |
+| ⬜ **Robocze** | Dla danego okresu zapisano oświadczenie, ale jeszcze nie wysłano |
+| 📤 **Złożone** | Oświadczenie złożone przez kontrahenta w PKU i dane wrzucone do pliku np. json |
 
 ---
 
@@ -169,14 +184,15 @@ Format numeru jak w pkt 8 (z segmentem `n_kor`), z typami opłat:
 ---
 
 ## 14. 📖 User Stories
-
-- **a)** Jako osoba składająca oświadczenie, chcę **zobaczyć terminarz** składania oświadczeń dla poszczególnych opłat pozaprzesyłowych i przesyłowych.
-- **b)** Jako osoba składająca oświadczenie, chcę **zobaczyć jakie oświadczenia** mam do złożenia w bieżącym miesiącu i roku.
-- **c)** Jako osoba składająca oświadczenie, chcę **uzupełnić i zapisać roboczo** oświadczenie uzupełniając dane ze wzoru oświadczenia.
-- **d)** Jako osoba składająca oświadczenie, chcę **wysłać oświadczenie** do aplikacji GAMS Rozliczenia.
-- **e)** Jako osoba składająca oświadczenie, chcę **otrzymać potwierdzenie** przyjęcia oświadczenia.
-- **f)** Jako osoba składająca oświadczenie, chcę mieć możliwość **podglądu** złożonego oświadczenia.
-- **g)** Jako osoba składająca oświadczenie, chcę mieć możliwość złożenia **oświadczenia korygującego**.
+- **a)** Jako administrator, chcę **wprowadzić wzór oświadczenia** z punktu 15.6 i **przypisać do niego wybrany typ Kontrahenta** z punktu 4
+- **b)** Jako administrator, chcę **utworzyć terminarz** z punktu 12 i **przypisać do rodzaju opłaty** z punktu 5 i **do wybranego** typu Kontrahenta** z punktu 4 zakładając, że będzie się rozliczać w cyklu miesięcznym 
+- **c)** Jako osoba składająca oświadczenie, chcę **zobaczyć terminarz** składania oświadczeń dla poszczególnych opłat pozaprzesyłowych i przesyłowych.
+- **d)** Jako osoba składająca oświadczenie, chcę **zobaczyć jakie oświadczenia** mam do złożenia w bieżącym miesiącu i roku.
+- **e)** Jako osoba składająca oświadczenie, chcę **uzupełnić i zapisać roboczo** oświadczenie uzupełniając dane ze wzoru oświadczenia.
+- **f)** Jako osoba składająca oświadczenie, chcę **wysłać oświadczenie** czyli wrzucić dane do pliku np. json .
+- **g)** Jako osoba składająca oświadczenie, chcę **otrzymać potwierdzenie** przyjęcia oświadczenia.
+- **h)** Jako osoba składająca oświadczenie, chcę mieć możliwość **podglądu** złożonego oświadczenia.
+- **i)** Jako osoba składająca oświadczenie, chcę mieć możliwość złożenia **oświadczenia korygującego**.
 
 ---
 
@@ -258,9 +274,8 @@ Lista okresów rozliczeniowych podzielona na dwie części:
 | Data od | — |
 | Data do | — |
 | Status oświadczeń w okresie | — |
-| Data złożenia ostatniego oświadczenia | Data oświadczenia przesłanego jako ostatnie do GAMS |
+| Data złożenia ostatniego oświadczenia | Data oświadczenia przesłanego jako ostatnie |
 | Umowny termin złożenia oświadczenia | Termin z terminarza przypiętego do grupy rozliczeniowej |
-| Rozliczenie podstawowe na danych zastępczych | Zaznaczone, jeśli w GAMS nie podpięto oświadczenia i rozliczenie opublikowane w SAP |
 
 > 📌 Sortowanie domyślne: *Typ opłaty* rosnąco.
 
@@ -327,20 +342,20 @@ Zawartość tabeli zależna od typu opłaty i typu kontrahenta (zgodnie z reguł
 
 #### c) Komentarz do oświadczenia
 
-> ℹ️ Pole widoczne i obowiązkowe zgodnie z wzorcem w GAMS. Kontrahent wpisuje opis, który chce przekazać.
+> ℹ️ Pole widoczne i obowiązkowe zgodnie z wzorcem wprowadzonym przez Administratora PKU. Kontrahent wpisuje opis, który chce przekazać.
 
 #### d) Dostępne akcje
 
 | Przycisk | Działanie |
 |----------|----------|
 | 🚫 **Anuluj** | Rezygnacja ze złożenia → powrót do listy oświadczeń |
-| ✅ **Zapisz i wyślij** | Złożenie oświadczenia i przesłanie do GAMS Rozliczenia |
+| ✅ **Zapisz i wyślij** | Złożenie oświadczenia i dane wrzucone do pliku np. json |
 
 > ⚠️ Przed wysłaniem wyświetlany jest komunikat potwierdzający:
-> *„Czy na pewno chcesz podpisać i wysłać oświadczenie [numer] do GAMS? Anuluj / Zatwierdź"*
+> *„Czy na pewno chcesz podpisać i wysłać oświadczenie [numer] ? Anuluj / Zatwierdź"*
 >
 > - **Anuluj** — rezygnacja ze złożenia
-> - **Zatwierdź** — zapisanie i wysłanie do GAMS Rozliczenia
+> - **Zatwierdź** — zapisanie i dane wrzucone do pliku np. json
 >
 > Po wysłaniu status zmienia się na **Złożone**.
 
@@ -369,7 +384,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 
 #### c) Komentarz do oświadczenia
 
-> ℹ️ Widoczne, jeżeli we wzorcu oświadczenia w GAMS zostało wskazane.
+> ℹ️ Widoczne, jeżeli we wzorcu oświadczenia Administrator wskazał.
 
 #### d) Powód odrzucenia
 
@@ -385,7 +400,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 
 ### 15.6. 📑 Dane oświadczeń wg typu opłaty i kontrahenta
 
-> ℹ️ Dane pochodzą z wzorów utworzonych w **GAMS Rozliczenia**. Poniższe tabele definiują pozycje formularza oświadczenia w zależności od kombinacji *typ opłaty × typ kontrahenta*.
+> ℹ️ Dane pochodzą z wzorów utworzonych  **przez Administratora w PKU**. Poniższe tabele definiują pozycje formularza oświadczenia w zależności od kombinacji *typ opłaty × typ kontrahenta*.
 
 ---
 
@@ -403,6 +418,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 | 2.3 | PWN | Number (9,3) | Przyłączeni do sieci WN/NN kontrahenta | TAK | kW | z oświadczenia, bez edycji |
 | 2.4 | Posi | Number (9,3) | Odbiorcy ≥ 400 GWh, ≥ 60% mocy umownej, koszt EE ≥ 15% produkcji | TAK | kW | z oświadczenia, bez edycji |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### b) Opłata OZE — OSDn / OSDp / OSDp + OK
@@ -414,6 +430,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 | 1.2 | OZEPN | Number (12,2) | Wierzytelności nieściągalne z poprzednich okresów | TAK | zł | z oświadczenia, bez edycji |
 | 2 | OZEE | Number (9,3) | Ilość energii — podstawa naliczania opłaty OZE | TAK | MWh | z oświadczenia, bez edycji |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### c) Opłata OZE — Odbiorcy końcowi / Magazyny
@@ -422,6 +439,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 |----|-----|-----------|---------------|:-----------:|:-----:|-------|
 | 1 | OZEil | Number (9,3) | Ilość energii — podstawa naliczania opłaty OZE | TAK | MWh | z oświadczenia, danych startowych lub SPR, bez edycji |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### d) Opłata OZE — Wytwórcy
@@ -430,6 +448,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 |----|-----|-----------|---------------|:-----------:|:-----:|-------|
 | 1 | OZEil | Number (9,3) | Planowana ilość energii — podstawa naliczania opłaty OZE | TAK | MWh | z danych startowych lub SPR, bez edycji |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### e) Opłata kogeneracyjna — OSDn / OSDp / OSDp + OK
@@ -442,6 +461,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 | 1.3 | OKOO   | Number (12,2) | Wielkość pobranych środków                                    |     TAK     |  zł   | z oświadczenia, bez edycji |
 | 2   | OKOE   | Number (9,3)  | Ilość energii — podstawa naliczania opłaty kogeneracyjnej     |     TAK     |  MWh  | z oświadczenia, bez edycji |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### f) Opłata kogeneracyjna — Odbiorcy końcowi / Wytwórcy / Magazyny
@@ -450,6 +470,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 |----|-----|-----------|---------------|:-----------:|:-----:|-------|
 | 1 | OKOE | Number (9,3) | Ilość energii — podstawa naliczania opłaty kogeneracyjnej | — | MWh | z oświadczenia, danych startowych lub SPR, bez edycji |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### g) Opłata mocowa — OSDn / OSDp / OSDp + OK / Wytwórcy / Magazyny
@@ -467,6 +488,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 | 3 | WEM | Number (9,3) | Wolumen energii — podstawa naliczania opłaty mocowej | TAK | MWh | z oświadczenia, bez edycji; występuje warunkowo |
 | 4 | WEnM | Number (9,3) | Wolumen energii po uwzględnieniu współczynników (art. 70a ust. 5) | TAK | MWh | z oświadczenia, bez edycji; występuje warunkowo |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### h) Opłata mocowa — Odbiorcy końcowi
@@ -475,6 +497,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 |----|-----|-----------|---------------|:-----------:|:-----:|-------|
 | 1 | WEM | Number (9,3) | Wolumen energii pobranej z sieci w godzinach opublikowanych (art. 74 ust. 4 pkt 2) | TAK | MWh | z danych startowych, bez edycji |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### i) Opłata jakościowa — Wytwórcy / Magazyny
@@ -500,6 +523,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 | 1.2.7.5 | Eosdmi   | Number (9,3) | Odbiorcy przyłączeni do urządzeń magazynowania (OSD bez miejsc dostarczania)                       |     TAK     |  MWh  | z oświadczenia, bez edycji |
 | 1.2.7.6 | Eosdoi   | Number (9,3) | EE na własny użytek OSDp bez miejsc dostarczania                                                   |     TAK     |  MWh  | z oświadczenia, bez edycji |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### j) Opłata jakościowa — Odbiorcy końcowi
@@ -512,6 +536,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 | 4 | Eosd | Number (9,3) | EE, za którą opłatę wnosi odbiorca do OSD w ramach umów dystrybucyjnych | TAK | MWh | z oświadczenia, bez edycji |
 | 5 | PKN OK | Number (9,3) | EE pobrana z sieci przesyłowej w MD Płock i zużyta przez PKN ORLEN | TAK | MWh | z oświadczenia, bez edycji; **tylko PKN ORLEN** |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### k) Opłata jakościowa — Wytwórcy, Magazyn, Wytwórca + Magazyn
@@ -525,6 +550,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 | 3 | Eanwwyt | Number (9,3) | EE zużyta przez ANWIL S.A. jako odbiorcę przyłączonego do ORLEN jako wytwórcy | TAK | MWh | **tylko PKN ORLEN** |
 | 4 | Eorlwytok | Number (9,3) | EE zużyta przez odbiorców końcowych innych niż ANWIL S.A. | TAK | MWh | **tylko PKN ORLEN** |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### l) Opłata rynkowa — wszyscy kontrahenci
@@ -533,6 +559,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 |----|-----|-----------|---------------|:-----------:|:-----:|-------|
 | 1 | Ewpi | Number (9,3) | Ilość EE przeznaczonej do wymiany między KSE a systemami państw spoza UE | TAK | MWh | z danych pomiarowych, bez edycji |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### m) Opłata zmienna sieciowa — wyjątki
@@ -543,6 +570,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 | oświadczenie | Epi | Number (9,3) | EE pobrana przez Użytkownika podczas postoju bloku 12 Bełchatów | TAK | MWh | **tylko Energoserwis Kleszczów**, składnik dla ROGOWIEC |
 | oświadczenie | PKNzm | Number (9,3) | EE pobrana w MD Płock, przepłynęła FPP nr 5 i 6, niezużyta na potrzeby ogólne bloku G1 | TAK | MWh | **tylko PKN ORLEN**, składnik MD_PŁOCK |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### n) Opłata dodatkowa — PGE
@@ -551,6 +579,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 |--------|-----|-----------|---------------|:-----------:|:-----:|-------|
 | oświadczenie | Epol | Number (9,3) | EE zmierzona po stronie 110kV transformatorów TR1 i TR2 w stacji Połaniec | TAK | MWh | **tylko PGED**, odejmowane od Suma Opoi netto |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 #### o) Opłata za usługi przesyłania — Instytut Energetyki
@@ -559,6 +588,7 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 |--------|-----|-----------|---------------|:-----------:|:-----:|-------|
 | oświadczenie | Ih | Number (9,3) | Rzeczywista liczba godzin prób ATR3 w m-tym miesiącu | TAK | h | dodawane do Suma Opoi netto |
 
+Czy możliwy do wprowadzenia **komentarz przez Kontrahenta TAK/ NIE** - jeżeli tak, to pole do edycji do 1000 znaków.
 ---
 
 ## 16. ⚙️ Wymagania niefunkcjonalne
@@ -566,13 +596,19 @@ Identyczne pola jak w pkt 15.4.a, z dodatkowymi polami (widocznymi tylko dla sta
 ### 16.1. 🧭 Menu aplikacji
 
 ```
+📂 Administracja
+├── 👤 Użytkownicy
+├── 📋 Wzorce oświadczeń
+├── 📅 Definiowanie terminarzy
+└── 🔐 Użytkownicy
 📂 PKU Rozliczenia
 ├── 📊 Dashboard oświadczeń do obsłużenia
 ├── 📅 Terminarz rozliczeń
 └── 📋 Oświadczenia rozliczeniowe
 ```
 
-> ℹ️ Osobne uprawnienia do **przeglądania** i do **wykonywania akcji**.
+> ℹ️ Osobne uprawnienia dla Kontrahenta do **przeglądania** i do **wykonywania akcji**.
+> ℹ️ Osobne uprawnienia dla Administratora do **obsługi listy użytkowników, terminarzy i wzorców oświadczeń** 
 
 ### 16.2. 🔑 Uprawnienia do menu
 
@@ -616,4 +652,4 @@ Pokazanie działającej aplikacji www z:
 
 - ✅ co najmniej **2 typy użytkowników** (OSDp / OSDn / Wytwórca / Magazyn / Odbiorca końcowy)
 - ✅ co najmniej **lista oświadczeń** zalogowanego Kontrahenta do złożenia na bieżący miesiąc i rok
-- ✅ co najmniej **możliwość złożenia 2 typów oświadczeń** na wybrane opłaty kontrahenta
+- ✅ co najmniej **możliwość złożenia 2 typów oświadczeń** na wybrane opłaty Kontrahenta
