@@ -1,93 +1,70 @@
 
-# ⭐ **Zasady oceniania projektów – szczegółowe wyjaśnienie**
+# 🧮 Zasady oceniania projektów — szczegółowe omówienie
 
-Każdy projekt jest oceniany przez jurorów w pięciu kryteriach. Każda ocena mieści się w skali **1–5**, gdzie:
+Każdy projekt jest oceniany przez jurorów w **6 kryteriach**, z których każde ma inną wagę w ocenie końcowej.
 
-- **1** – bardzo słabo
-- **5** – doskonale
-
-### **Kryteria i ich wagi:**
-
-|Kryterium|Waga|
-|---|---|
-|🤖 Spryt Agentic AI|**30%**|
-|🎯 Zrozumienie problemu|**20%**|
-|💡 Potencjał biznesowy|**10%**|
-|🚀 Działające demo|**30%**|
-|🎤 Prezentacja i storytelling|**10%**|
+## 🔹 1. Kryteria i ich wagi
+| Kryterium | Opis | Skala | Waga |
+|-----------|-------|--------|-------|
+| 🤖 Spryt Agentic AI | Jak inteligentnie i autonomicznie projekt wykorzystuje AI | 1–5 | **25%** |
+| 🎯 Zrozumienie problemu | Czy zespół dobrze rozumie i adresuje realny problem | 1–5 | **10%** |
+| 💡 Potencjał biznesowy | Czy projekt ma sens biznesowy i możliwość wdrożenia | 1–5 | **10%** |
+| 🏗️ Architektura aplikacji | Jakość architektury, wybór technologii, skalowalność | 1–5 | **20%** |
+| 🚀 Działające demo | Czy projekt faktycznie działa i pokazuje kluczowe funkcje | 1–5 | **25%** |
+| 🎤 Prezentacja i storytelling | Jak zespół przedstawił projekt | 1–5 | **10%** |
 
 ---
 
-# 📌 **Jak obliczamy wynik projektu?**
+# 📊 Jak liczony jest wynik końcowy?
 
-1. Każdy juror wystawia oceny 1–5 w każdym kryterium.
-2. Dla każdego kryterium liczona jest wartość:  
-    **(ocena) × (waga kryterium)**
-3. Wszystkie wartości są sumowane → daje to **wynik jurora**.
-4. Jeśli projekt oceniany jest przez wielu jurorów, ich wyniki są **uśredniane** → to wynik końcowy projektu.
+### 1. Każdy juror ocenia projekt w skali 1–5 dla każdego kryterium.
 
-### ✔️ **Przykład:**
+### 2. System oblicza cząstkowe wyniki:
+```
+ocena × waga
+```
 
-Jeśli juror wystawił:
+### 3. Następnie oblicza sumę ważoną — to jest wynik jurora.
 
-- Spryt AI: 5
-- Zrozumienie problemu: 4
-- Potencjał biznesowy: 3
-- Demo: 4
-- Prezentacja: 5
-
-Wynik =  
-5×0.30 + 4×0.20 + 3×0.10 + 4×0.30 + 5×0.10 = **4.3 pkt**
+### 4. Wyniki wszystkich jurorów są sumowane
 
 ---
 
-# ⚖️ **Co w przypadku remisu?**
+# 🥇 Zasady przydzielania wyróżnień
 
-Jeśli dwa lub więcej projektów mają **taki sam wynik końcowy**, o wyższym miejscu decyduje:
+Nagradzane są 3 rozwiązania z największą liczbą punktów
 
-### **Suma:**
 
-- Spryt Agentic AI
-- Działające demo
-- Zrozumienie problemu
 
-Jeśli dalej jest remis — jury może dodatkowo podjąć decyzję merytoryczną.
+## ⭐ Wyróżnienie specjalne  
+Oprócz klasyfikacji jurorów odbędzie się głosowanie wśród uczestników na wybór ich zdaniem najlepszego rozwiązania.
 
 ---
 
-# 🏆 **Zasady przydzielania wyróżnień**
+# ⚖️ Co jeśli dwa projekty mają ten sam wynik?
 
-Po obliczeniu wyników końcowych projekt otrzymuje odpowiednie **wyróżnienie jakościowe**, na podstawie oceny łącznej oraz charakteru projektu:
+Przy remisie system stosuje dodatkową punktację opartą na trzech kluczowych kryteriach:
 
-### 🥇 **Złoto**
+- **Spryt Agentic AI**
+- **Działające demo**
+- **Zrozumienie problemu**
 
-- projekt wybitny
-- bardzo wysoka średnia punktowa
-- działa w pełni i ma potencjał do wdrożenia "tu i teraz"
-
-### 🥈 **Srebro**
-
-- bardzo dobry projekt
-- drobne braki w wykonaniu lub prezentacji
-- duży potencjał, ale wymagający dopracowania
-
-### 🥉 **Brąz**
-
-- solidny projekt
-- może mieć braki techniczne lub koncepcyjne
-- istotny potencjał rozwojowy
-
-### ⭐ **Specjalne wyróżnienie**
-
-Przyznawane **niezależnie od wyniku punktowego**, jeśli:
-
-- projekt zawiera szczególnie ciekawy element,
-- zastosował nietypowy, innowacyjny pomysł,
-- pokazuje wyjątkowe podejście do technologii.
+Sumujemy te trzy oceny — wyższa suma = zwycięstwo.
 
 ---
 
-# 📢 Dodatkowe zasady przejrzystości
+# 🧩 Przykład obliczenia wyniku (dla jednego jurora)
 
-- Wszystkie oceny jurorów są **jawne po ogłoszeniu wyników**.
-- Jawne są również komentarze, jeśli jurorzy je dodają.
+Oceny:
+- Spryt AI: 5  
+- Zrozumienie: 4  
+- Biznes: 3  
+- Architektura: 3  
+- Demo: 4  
+- Prezentacja: 5  
+
+Obliczenie:
+```
+5×0.25 + 4×0.10 + 3×0.10 + 3×0.20 + 4×0.25 + 5×0.10 = 4.05
+```
+
